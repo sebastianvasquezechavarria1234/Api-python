@@ -48,3 +48,44 @@ A robust Flask-based REST API designed to calculate geometric properties of tria
    ```bash
    python app.py
    ```
+
+## API Documentation
+
+### Calculate Triangle Properties
+
+- **URL:** `/api/triangulo`
+- **Method:** `POST`
+- **Content-Type:** `application/json`
+
+**Request Body Example:**
+```json
+{
+  "base": 10,
+  "altura": 5,
+  "lado1": 10,
+  "lado2": 10
+}
+```
+
+**Success Response (200 OK):**
+```json
+{
+  "status": "success",
+  "data": {
+    "base": 10,
+    "altura": 5,
+    "lado1": 10,
+    "lado2": 10,
+    "area": 25.0,
+    "perimetro": 30.0
+  }
+}
+```
+
+**Error Response (400 Bad Request):**
+```json
+{
+  "error": "Field 'base' must be a number",
+  "message": "Specific details about the validation error"
+}
+```
