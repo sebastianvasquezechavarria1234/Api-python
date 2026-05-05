@@ -38,14 +38,32 @@ def calcular_triangulo_endpoint():
 
     # Respuesta JSON
     return jsonify({
-        "base": base,
-        "altura": altura,
-        "lado1": lado1,
-        "lado2": lado2,
-        "area": area,
-        "perimetro": perimetro
+        "status": "success",
+        "data": {
+            "base": base,
+            "altura": altura,
+            "lado1": lado1,
+            "lado2": lado2,
+            "area": area,
+            "perimetro": perimetro
+        }
     }), 200
 
+@app.errorhandler(400)
+def bad_request(e):
+    return jsonify({"error": "Bad request", "message": str(e.description)}), 400
+
+@app.errorhandler(404)
+def not_found(e):
+    return jsonify({"error": "Resource not found", "message": "The requested URL was not found on the server"}), 404
+
+@app.errorhandler(405)
+def method_not_allowed(e):
+    return jsonify({"error": "Method not allowed", "message": "The method is not allowed for the requested URL"}), 405
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    return jsonify({"error": "Internal server error", "message": "An unexpected error occurred on the server"}), 500
 
 if __name__ == "__main__":
     app.run(debug=True)
