@@ -7,16 +7,31 @@ app = Flask(__name__)
 def calcular_triangulo_endpoint():
     data = request.get_json()
 
-    # Validar datos obligatorios
+    # Validar datos obligatorios y tipos
     required = ["base", "altura", "lado1", "lado2"]
+    values = {}
+    
     for field in required:
         if field not in data:
-            return jsonify({"error": f"Falta el campo '{field}'"}), 400
+            return jsonify({"error": f"Missing required field: '{field}'"}), 400
+        
+        val = data[field]
+        if not isinstance(val, (int, float)):
+            return jsonify({"error": f"Field '{field}' must be a number"}), 400
+        
+        if val <= 0:
+            return jsonify({"error": f"Field '{field}' must be greater than zero"}), 400
+        
+        values[field] = val
 
-    base = data["base"]
-    altura = data["altura"]
-    lado1 = data["lado1"]
-    lado2 = data["lado2"]
+    base = values["base"]
+    altura = values["altura"]
+    lado1 = values["lado1"]
+    lado2 = values["lado2"]
+
+    # Validar desigualdad del triángulo (los lados deben ser base, lado1, lado2)
+    if not (base + lado1 > lado2 and base + lado2 > lado1 and lado1 + lado2 > base):
+        return jsonify({"error": "The provided sides (base, lado1, lado2) do not form a valid triangle"}), 400
 
     # Llamar al modelo
     area, perimetro = calcular_triangulo(base, altura, lado1, lado2)
