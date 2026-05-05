@@ -1,5 +1,9 @@
+import os
 from flask import Flask, request, jsonify
 from models.triangulo import calcular_triangulo
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -66,4 +70,6 @@ def internal_server_error(e):
     return jsonify({"error": "Internal server error", "message": "An unexpected error occurred on the server"}), 500
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.getenv("PORT", 5000))
+    debug = os.getenv("DEBUG", "True") == "True"
+    app.run(host="0.0.0.0", port=port, debug=debug)
