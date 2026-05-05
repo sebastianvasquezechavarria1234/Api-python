@@ -7,6 +7,47 @@ triangulo_bp = Blueprint('triangulo', __name__)
 
 @triangulo_bp.route("/triangulo", methods=["POST"])
 def calcular_triangulo_endpoint():
+    """
+    Calculate area and perimeter of a triangle
+    ---
+    parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          id: TriangleRequest
+          required:
+            - base
+            - altura
+            - lado1
+            - lado2
+          properties:
+            base:
+              type: number
+            altura:
+              type: number
+            lado1:
+              type: number
+            lado2:
+              type: number
+    responses:
+      200:
+        description: Successful calculation
+        schema:
+          id: TriangleResponse
+          properties:
+            status:
+              type: string
+            data:
+              type: object
+              properties:
+                area:
+                  type: number
+                perimetro:
+                  type: number
+      400:
+        description: Invalid input
+    """
     data = request.get_json()
 
     if not data:

@@ -2,6 +2,7 @@ import os
 import logging
 from flask import Flask, jsonify
 from flask_cors import CORS
+from flasgger import Swagger
 from dotenv import load_dotenv
 from src.routes.triangulo_routes import triangulo_bp
 
@@ -17,6 +18,7 @@ logger = logging.getLogger(__name__)
 def create_app():
     app = Flask(__name__)
     CORS(app)
+    Swagger(app)
 
     # Register blueprints
     app.register_blueprint(triangulo_bp, url_prefix='/api')
