@@ -1,10 +1,18 @@
 import os
+import logging
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from models.triangulo import calcular_triangulo
 from dotenv import load_dotenv
 
 load_dotenv()
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 CORS(app)
@@ -37,9 +45,11 @@ def calcular_triangulo_endpoint():
 
     # Validar desigualdad del triángulo (los lados deben ser base, lado1, lado2)
     if not (base + lado1 > lado2 and base + lado2 > lado1 and lado1 + lado2 > base):
+        logger.warning(f"Invalid triangle inequality: base={base}, lado1={lado1}, lado2={lado2}")
         return jsonify({"error": "The provided sides (base, lado1, lado2) do not form a valid triangle"}), 400
 
     # Llamar al modelo
+    logger.info(f"Calculating triangle for base={base}, altura={altura}")
     area, perimetro = calcular_triangulo(base, altura, lado1, lado2)
 
     # Respuesta JSON
