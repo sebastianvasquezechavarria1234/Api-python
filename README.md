@@ -89,3 +89,26 @@ A robust Flask-based REST API designed to calculate geometric properties of tria
   "message": "Specific details about the validation error"
 }
 ```
+
+## Project Structure
+
+```text
+Api-python/
+├── src/
+│   ├── routes/          # API route definitions (Blueprints)
+│   ├── services/        # Business logic and calculations
+│   └── __init__.py
+├── tests/               # Unit and integration tests
+├── app.py               # Main application entry point
+├── .env                 # Environment configuration
+├── requirements.txt     # Project dependencies
+└── README.md            # Documentation
+```
+
+## Testing
+
+To run the automated tests, ensure you have `pytest` installed and run:
+
+```bash
+pytest
+```
