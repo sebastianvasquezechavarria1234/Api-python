@@ -112,3 +112,16 @@ To run the automated tests, ensure you have `pytest` installed and run:
 ```bash
 pytest
 ```
+
+## Swagger UI
+
+The API comes with built-in interactive documentation. Once the server is running, you can access it at:
+
+[http://localhost:5000/apidocs/](http://localhost:5000/apidocs/)
+
+## License
+
+This project is open-source and available for educational purposes.
+
+---
+*Created with ❤️ by Sebastian Vasquez*
